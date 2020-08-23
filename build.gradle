@@ -1,0 +1,39 @@
+plugins {
+	id 'org.springframework.boot' version '2.3.3.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+	id 'java'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-web-services'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	runtimeOnly 'com.h2database:h2'
+	compile("org.glassfish.jersey.media:jersey-media-multipart:2.29.1")
+	compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.11.1'
+	compile 'com.fasterxml.jackson.core:jackson-core:2.10.2'
+	compile 'com.fasterxml.jackson.core:jackson-annotations:2.10.2'
+	compile 'com.fasterxml.jackson.core:jackson-databind:2.10.2'
+	compile group: 'org.jsoup', name:'jsoup', version:'1.8.3'
+	compile group: 'com.googlecode.json-simple', name:'json-simple', version:'1.1.1'
+	compile group: 'commons-io', name: 'commons-io', version: '2.6'
+	compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.5'
+	compile('org.springframework.boot:spring-boot-starter-data-jpa')
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+}
+
+test {
+	useJUnitPlatform()
+}
