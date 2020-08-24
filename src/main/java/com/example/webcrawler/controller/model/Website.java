@@ -16,7 +16,7 @@ public class Website {
     private Integer id;
     private String title;
 
-    @OneToMany(mappedBy="websitelinks_id")
+    @OneToMany(mappedBy="id")
     private Set<WebsiteLinks> links;
 
     public Website( String title) {

@@ -32,7 +32,7 @@ public class WebsiteService {
 
         for(Element link: linksOnPage){
             urls.add(link.toString());
-            WebsiteLinks websitelink = new WebsiteLinks(link.toString(),(long) site.getId());
+            WebsiteLinks websitelink = new WebsiteLinks(link.toString(), site);
             websiteLinksRepository.save(websitelink);
         }
 

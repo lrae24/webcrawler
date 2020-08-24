@@ -3,21 +3,20 @@ package com.example.webcrawler.controller.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name="WebsiteLinks")
+@Table(name="website_links")
 public class WebsiteLinks {
 
     @Id
     @GeneratedValue
-    @Column(name = "websitelinks_id")
     private Long id;
 
     private String link;
 
     @ManyToOne
-    @JoinColumn(name="website_id", nullable=false)
-    private Long websiteId;
+    @JoinColumn(name="website_id")
+    private Website websiteId;
 
-    public WebsiteLinks( String link, Long websiteId) {
+    public WebsiteLinks( String link, Website websiteId) {
         this.link = link;
         this.websiteId = websiteId;
     }
@@ -30,11 +29,11 @@ public class WebsiteLinks {
         this.link = link;
     }
 
-    public Long getWebsiteId() {
+    public Website getWebsiteId() {
         return websiteId;
     }
 
-    public void setWebsiteId(Long websiteId) {
+    public void setWebsiteId(Website websiteId) {
         this.websiteId = websiteId;
     }
 
