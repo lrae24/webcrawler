@@ -20,4 +20,10 @@ public class WebsiteURL {
     public void setURL(String URL) {
         this.URL = URL;
     }
+
+    @Override
+    public String toString() {
+        return URL;
+
+    }
 }

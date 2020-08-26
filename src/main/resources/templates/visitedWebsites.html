@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Sites Visited</title>
+</head>
+<body>
+    <div  th:each="website: ${webcollection}">
+        <h2 th:text="${website.key.title}"></h2>
+        <table th:each="link: ${website.value}">
+            <tr>
+                <td th:text="${link}"></td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

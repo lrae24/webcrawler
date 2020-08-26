@@ -15,7 +15,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class HomeController {
@@ -33,17 +36,21 @@ public class HomeController {
       return "index.html";
     }
 
-    @GetMapping(path="/websites", produces = "application/json")
-    public void showWebsites() throws IOException {
-        websiteService.retrieveLinks("https://www.eagleford.co.za");
+    @GetMapping(path="/websites")
+    public String showWebsites(Model model) throws IOException {
+      List<Website> visitedSites =  websiteService.retrieveAllWebsites();
+        Map<Website,List<String>> websitesWithLinks = websiteLinksService.retrieveVisitedWebsites(visitedSites);
+        model.addAttribute("webcollection", websitesWithLinks);
+        model.addAttribute("websites", visitedSites);
+        return "visitedWebsites";
     }
 
-    @PostMapping(path="/websitecheck", produces = "application/json")
-    public String findWebsite(@ModelAttribute WebsiteURL url, Model model) throws IOException {
-        Website website = websiteService.retrieveLinks(url.getURL());
-        List<WebsiteLinks> weblinks = websiteLinksService.findWebLinks(website.getId());
+    @PostMapping(path="/websitecheck")
+    public String findWebsite(WebsiteURL url, Model model) throws IOException {
+        Website website = websiteService.saveWebsite(url.getURL());
+        HashSet<WebsiteLinks> links = websiteLinksService.getlinks(url.toString(),website);
         model.addAttribute("website",website );
-        model.addAttribute("weblinks",weblinks );
+        model.addAttribute("websiteLinks",links );
         return "webpageDetails.html";
     }
 

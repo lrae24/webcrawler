@@ -11,32 +11,30 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.List;
+
 @Service
 public class WebsiteService {
 
     @Autowired
     WebsiteRepository websiteRepository;
 
-    @Autowired
-    WebsiteLinksRepository websiteLinksRepository;
 
-    public Website retrieveLinks(String URL) throws IOException {
-        HashSet<String> urls = new HashSet<>();
-        Document document = Jsoup.connect(URL).get();
-        Elements linksOnPage = document.select("a[href]");
+    public Website saveWebsite(String URL) throws IOException {
         Website site = new Website(URL);
-        websiteRepository.save(site);
-
-        for(Element link: linksOnPage){
-            urls.add(link.toString());
-            WebsiteLinks websitelink = new WebsiteLinks(link.toString(), site);
-            websiteLinksRepository.save(websitelink);
-        }
-
-
+        site = websiteRepository.save(site);
         return site;
     }
+
+    public List<Website> retrieveAllWebsites() {
+       return  websiteRepository.findAll();
+    }
+
+
+
 }

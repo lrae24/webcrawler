@@ -7,19 +7,23 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name="Websites")
+@Table(name="Website")
 public class Website {
 
     @Id
     @GeneratedValue
-    @Column(name = "website_id")
-    private Integer id;
+    private Long id;
     private String title;
 
-    @OneToMany(mappedBy="id")
-    private Set<WebsiteLinks> links;
+    public Website() {
+    }
 
-    public Website( String title) {
+    public Website(Long id, String title) {
+        this.id = id;
+        this.title = title;
+    }
+
+    public Website(String title) {
         this.title = title;
     }
 
@@ -31,11 +35,19 @@ public class Website {
         this.title = title;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "Website{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                '}';
     }
 }

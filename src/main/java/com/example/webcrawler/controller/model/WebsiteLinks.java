@@ -11,10 +11,18 @@ public class WebsiteLinks {
     private Long id;
 
     private String link;
+    private String imgUrl;
+    private long depth;
+    private String relLinks;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="website_id")
     private Website websiteId;
+
+    public WebsiteLinks() {
+
+    }
+
 
     public WebsiteLinks( String link, Website websiteId) {
         this.link = link;
@@ -43,5 +51,41 @@ public class WebsiteLinks {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
+    public long getDepth() {
+        return depth;
+    }
+
+    public void setDepth(long depth) {
+        this.depth = depth;
+    }
+
+    public String getRelLinks() {
+        return relLinks;
+    }
+
+    public void setRelLinks(String relLinks) {
+        this.relLinks = relLinks;
+    }
+
+    @Override
+    public String toString() {
+        return "WebsiteLinks{" +
+                "id=" + id +
+                ", link='" + link + '\'' +
+                ", imgUrl='" + imgUrl + '\'' +
+                ", depth=" + depth +
+                ", relLinks='" + relLinks + '\'' +
+                ", websiteId=" + websiteId +
+                '}';
     }
 }
