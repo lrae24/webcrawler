@@ -8,6 +8,5 @@ import java.util.List;
 
 
 public interface WebsiteLinksRepository extends JpaRepository<WebsiteLinks, Long> {
-
-    public List<WebsiteLinks> findALLByWebsiteId(Website websiteId);
+    List<WebsiteLinks> findALLByWebsiteId(Website websiteId);
 }

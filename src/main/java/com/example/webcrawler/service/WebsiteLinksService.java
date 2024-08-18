@@ -3,7 +3,6 @@ package com.example.webcrawler.service;
 import com.example.webcrawler.controller.model.Website;
 import com.example.webcrawler.controller.model.WebsiteLinks;
 import com.example.webcrawler.repositories.WebsiteLinksRepository;
-import com.example.webcrawler.repositories.WebsiteRepository;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.*;
 
 @Service
@@ -22,10 +20,10 @@ public class WebsiteLinksService {
     WebsiteLinksRepository websiteLinksRepository;
 
 
-    public List<WebsiteLinks> findWebLinks(Website websiteId){
-      List<WebsiteLinks> allLinks =  websiteLinksRepository.findALLByWebsiteId(websiteId);
-        return allLinks;
-    }
+//    public List<WebsiteLinks> findWebLinks(Website websiteId){
+//      List<WebsiteLinks> allLinks =  websiteLinksRepository.findALLByWebsiteId(websiteId);
+//        return allLinks;
+//    }
 
 
     public HashSet<WebsiteLinks> getlinks(String URL, Website site) throws IOException {
@@ -34,9 +32,11 @@ public class WebsiteLinksService {
         Elements linksOnPage = document.select("a[href]");
         for (Element link : linksOnPage) {
             String links = link.attr("abs:href");
+            if(links.contains("sedna.com")){
             urls.add(new WebsiteLinks(links,site));
             WebsiteLinks websitelink = new WebsiteLinks(links, site);
             websiteLinksRepository.save(websitelink);
+            }
         }
         return urls;
     }
