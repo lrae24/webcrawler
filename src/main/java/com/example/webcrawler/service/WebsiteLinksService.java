@@ -27,12 +27,13 @@ public class WebsiteLinksService {
 
 
     public HashSet<WebsiteLinks> getlinks(String URL, Website site) throws IOException {
+        Optional<String> siteDomain = Arrays.stream(URL.replace("https://www.","").split("/")).findFirst();
         HashSet<WebsiteLinks> urls = new HashSet<>();
         Document document = Jsoup.connect(URL).get();
         Elements linksOnPage = document.select("a[href]");
         for (Element link : linksOnPage) {
             String links = link.attr("abs:href");
-            if(links.contains("sedna.com")){
+            if(links.contains(siteDomain.get())){
             urls.add(new WebsiteLinks(links,site));
             WebsiteLinks websitelink = new WebsiteLinks(links, site);
             websiteLinksRepository.save(websitelink);
